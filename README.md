@@ -24,7 +24,9 @@ https://github.com/VladULazarev/screen-shots/tree/main/laravel-tweety
 https://tweety.getyoursite.info
 ```
 
-Уже есть тестовый пользователь. Вы можете войти, используя указанные ниже данные:
+Можно зарегистрироваться.
+
+Или есть тестовый пользователь. Вы можете войти, используя указанные ниже данные:
 
 Email:
 
