@@ -112,6 +112,16 @@ footer > img {
     margin-top: 1rem;
 }
 
+.form-errors {
+    height: 2rem;
+    padding-left: 1rem;
+    opacity: 0;
+}
+
+.tweet-error {
+    color: #9c27b0;
+}
+
 /* ------------------------------------------------------------- 4. Buttons */
 .btn-blue {
     border-radius: 20px;
