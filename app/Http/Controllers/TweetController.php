@@ -36,6 +36,8 @@ class TweetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @see public\build\assets\app.js -- 4. Store and show the new 'tweet'
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store()
@@ -43,11 +45,13 @@ class TweetController extends Controller
         request()->validate(['body' => 'required|string|max:255']);
 
         Tweet::create([
-            'user_id' => auth()->id(),
+            'user_id' => request('userId'),
             'body'    => request('body')
         ]);
 
-        return to_route('tweets.index');
+        return view('tweets.new-tweet', [
+            'tweet' => Tweet::latest()->first()
+        ]);
     }
 
     /**
