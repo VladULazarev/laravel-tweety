@@ -1,0 +1,390 @@
+/*
+CONTENT
+
+1. Main elements
+2. Main navigation
+3. The form to send message ('tweet')
+4. Buttons
+5. Timeline
+    5.1 Delete a 'tweet'
+6. left-side bar
+7. Right-side bar
+8. Scroll only central part of the page
+
+*/
+
+:root {
+
+    --main-text: #212529;
+    --alert: #ba68c8;
+    --gray-bg: #f7f9f9;
+}
+
+/* ------------------------------------------------------- 1. Main elements */
+h1, h2, h3 , h4, h5 {
+    font-weight: 700;
+}
+
+h5 {
+    font-size: 1.05rem;
+}
+
+ol, ul {
+    padding-left: 0;
+}
+
+p {
+    line-height: 1.4;
+}
+
+img {
+    max-width: fit-content;
+}
+
+hr {
+    border: 1px solid rgb(221 221 221);
+    margin: 0;
+}
+
+@media (min-width: 1400px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1220px;
+    }
+}
+
+.content {
+    visibility: visible;
+    opacity: 0;
+}
+
+/* see in: resources\views\layouts\navigation.blade.php*/
+.laravel-auth-dropdown {
+    display: none;
+}
+
+/* ----------------------------------------------------- 2. Main navigation */
+.home-header {
+    padding-top: .9rem;
+    font-size: 1.7rem;
+}
+
+/* -------------------------------------------- 3. The form to send message */
+.form-control {
+    background-color: transparent;
+    padding: .6em;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: none;
+}
+
+.form-control:focus {
+    color: var(--main-text);
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: 0;
+}
+
+.message {
+    border: 1px solid rgb(238 239 243);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+footer {
+    display: flex;
+    margin-top: 1.5rem;
+    justify-content: space-between;
+}
+
+footer > img {
+    width: 40px;
+}
+
+.laravel-alert {
+    display: inline-block;
+    color: var(--alert);
+    margin-top: 1rem;
+}
+
+/* ------------------------------------------------------------- 4. Buttons */
+.btn-blue {
+    border-radius: 20px;
+    padding: .5rem 1.5rem;
+    color: #fff;
+    background-color: #1d9bf0;
+    font-weight: 500;
+    transition: .3s all;
+}
+
+.btn-blue:hover {
+    background-color: #1581cb;
+}
+
+.btn-white {
+    min-width: 10rem;
+    text-align: center;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .3s all;
+}
+
+.btn-white:hover {
+    background-color: #eeeeee;
+    color: #000;
+}
+
+.follow-btn {
+    min-width: 10rem;
+    text-align: center;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .3s all;
+}
+
+.follow-btn:hover {
+    background: #fce4ec;
+    color: #c62828;
+}
+
+.follow-btn:hover span {
+    display: none;
+}
+
+.follow-btn:hover:before {
+    content: "Перестать читать";
+}
+
+
+/* ------------------------------------------------------------ 5. Timeline */
+.timeline {
+    padding: .7rem;
+}
+
+.timeline > p {
+    color: #757575;
+}
+
+.link-to-profile {
+    font-weight: 700;
+    color: inherit;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: .3s all;
+}
+
+.link-to-profile:hover {
+    color: inherit;
+    text-decoration:underline;
+}
+
+.rounded-circle:hover {
+    transition: .3s all;
+}
+
+.profile-content {
+    padding: 0 1rem;
+}
+
+.profile-header {
+    border: 1px solid rgb(238 239 243);
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.register-name {
+    font-weight: 600;
+    color: #938a8a;
+    text-transform: lowercase;
+}
+
+.register-date {
+    font-weight: 600;
+    color: #938a8a;
+}
+
+.profile-bunner {
+    width: 100%;
+    height: auto;
+}
+
+.profile-avatar {
+    position: absolute;
+    bottom: -5rem;
+    left: 2rem;
+    border: 4px solid #fff;
+}
+
+/* gray text */
+.gray {
+    color: #938a8a;
+}
+
+.break-all {
+    word-break: break-all;
+}
+
+/* Explore  */
+.link-in-explore {
+    display: block;
+    margin-bottom: -.2rem;
+}
+
+.tweet {
+    padding: 1rem .3rem 0 .3rem;
+}
+
+.tweet:hover {
+    cursor: pointer;
+    background: var(--gray-bg);
+}
+
+.preloader {
+    height: 70px;
+}
+
+/* --------------------------------------------------- 5.1 Delete a 'tweet' */
+.tweet-dots {
+    width: 1.8rem;
+    position: absolute;
+    top: -0.4rem;
+    padding: 0.2rem;
+    right: 0.3rem;
+    opacity: .5;
+    transition: .3s all;
+}
+
+.tweet-dots:hover {
+    background: #c4daed;
+}
+
+.delete-tweet {
+    display: none;
+    position: absolute;
+    top: -0.8rem;
+    right: -0.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+    background-color: #fff;
+    z-index: 2;
+    box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px,
+     rgba(101, 119, 134, 0.15) 0px 0px 3px 1px;
+}
+
+.display-block {
+    display: block!important;
+}
+
+.display-none {
+    display: none;
+}
+
+.popup-container {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: transparent;
+    position: fixed;
+    z-index: 1;
+}
+
+/* ------------------------------------------------------- 6. left-side bar */
+.left-side-bar {
+    padding-top: .2rem;
+}
+
+.left-side-bar-ul > li > i {
+    font-size: 1.4rem;
+    margin-right: 1.5rem;
+}
+
+.left-side-bar-link {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: var(--main-text);
+    transition: .3s all;
+}
+
+.left-side-bar-link:hover {
+    color: #1d9bf0;
+}
+
+.active-link {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    transition: .3s all;
+    color: #1d9bf0;
+}
+
+.active-link:hover {
+    color: #1d9bf0;
+    cursor: default;
+}
+
+/* ------------------------------------------------------ 7. Right-side bar */
+.right-side-bar h4 {
+    background-color: var(--gray-bg);
+    border-radius: 20px;
+    padding: 0.7rem 1rem 1rem;
+}
+
+.friends {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    background-color: var(--gray-bg);
+    border-radius: 20px;
+    transition: .3s all;
+}
+
+.friends:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.right-side-link {
+    color: var(--main-text);
+    text-decoration: none;
+    transition: .3s all;
+}
+
+.right-side-link:hover {
+    color: var(--main-text);
+}
+
+/* -------------------------------- 8. Scroll only central part of the page */
+.cont {
+    height: 800px;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
+}
+
+.cont::-webkit-scrollbar {
+    display: none;
+    /* for Chrome, Safari, and Opera */
+}
