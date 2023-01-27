@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/delete-tweet', [ TweetController::class, 'destroy' ] );
 
+    Route::post('/new-tweets', [ TweetController::class, 'getNewTweetsForCurrentUser' ] );
+
 
     // --------------------------------------------------------------- Explore
 
