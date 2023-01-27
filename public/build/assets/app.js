@@ -4,16 +4,21 @@
  * 1. Set variables
  * 2. Show more 'tweets' for '/home' and '/profiles/{$user}'page
  * 3. Delete the 'tweet'
- *  * 4. Store and show the new 'tweet'
+ * 4. Store and show the new 'tweet'
+ * 5. Get new 'tweets' for the current user using 'ajax'
  */
 
 $(document).ready(function(){
 
+
+// --------------------------------------------- 1. Set variables and functions
+
+    const shortTime = 100;
+    const middleTime = 300;
+    const _token = $("input[name='_token']").val();
+
     // Show the content
     $(".content").fadeTo(300, 1);
-
-// ---------------------------------------------------------- 1. Set variables
-    const middleTime = 300;
 
     /**
      * Show error messages from the current form
@@ -26,9 +31,9 @@ $(document).ready(function(){
 
         setTimeout(function(){
             $('.' + formName + '-error').append(errorMsg);
-        }, 100);
+        }, shortTime);
 
-        $('.form-errors').fadeTo(100, 1);
+        $('.form-errors').fadeTo(shortTime, 1);
     }
 
     /**
@@ -37,7 +42,7 @@ $(document).ready(function(){
      * @param {*} formName The name of the current form
      */
     function hideMsg(formName) {
-        $('.form-errors').fadeTo(100, 0);
+        $('.form-errors').fadeTo(shortTime, 0);
         $('.' + formName + '-error').empty();
     }
 
@@ -47,7 +52,7 @@ $(document).ready(function(){
      * @param {*} formName The name of the current form
      */
     $("#body").focus(function(){
-        $('.form-errors').fadeTo(100, 0);
+        $('.form-errors').fadeTo(shortTime, 0);
     });
 
 // ------------- 2. Show more 'tweets' for '/home' and '/profiles/{$user}'page
@@ -60,8 +65,6 @@ $(document).ready(function(){
         rootMargin: '0px',
         threshold: 1.0
     };
-
-    const _token = $("input[name='_token']").val();
 
     // Get the current location
     const currentUrl = location.href.split('/');
@@ -137,8 +140,6 @@ $(document).ready(function(){
    // Click 'Удалить' tooltip and delete the 'tweet'
     $(document).on("click", ".delete-tweet", function(){
 
-        const _token = $("input[name='_token']").val();
-
         // Get 'id' of the 'tweet'
         const tweetId = $(this).data("value");
 
@@ -148,7 +149,7 @@ $(document).ready(function(){
         // Remove the transparent background
         $(".popup-container").remove();
 
-        // Hide the 'tweet'
+        // Hide the deleted 'tweet'
         $("." + tweetId).fadeTo(middleTime, 0);
         setTimeout(function(){ $("." + tweetId).addClass('display-none'); }, middleTime);
 
@@ -182,8 +183,6 @@ $(document).ready(function(){
         }
 
         // Set variables
-        const _token = $("input[name='_token']").val();
-
         const userId = $("input[name='current-user']").val();
 
         // Set timeout
@@ -215,7 +214,53 @@ $(document).ready(function(){
                 }
             });
 
-        }, 300);
+        }, middleTime);
+
     });
+
+// ---------------------- 5. Get new 'tweets' for the current user using 'ajax'
+
+    var getNewTweets = function() {
+
+        var getCurrentUrl = currentUrl[currentUrl.length-1];
+
+        // Start the script only if the current url = http://tweety/home
+        if (getCurrentUrl == 'home') {
+
+            // Get the 'id' of the last 'tweet'
+            var tweetLastId = $(".tweet").first().data("value");
+
+            // Get 'id' of the current user
+            const userId = $("input[name='current-user']").val();
+
+            // Send data to controller
+            $.post('/new-tweets', {
+
+                tweetLastId: tweetLastId,
+                userId: userId,
+                _token: _token
+
+            }, function(data) {
+
+                // If something went wrong
+                if(data == '') {
+
+                    //console.log('No new tweets');
+
+                // Add new 'tweets' to the top of the timeline
+                } else if (data) {
+
+                    $(".timeline").prepend(data);
+
+                    return false;
+                }
+            });
+
+            // Start function 'getNewTweets' every 5 seconds
+            setTimeout(getNewTweets, 5000);
+        }
+    }
+
+    getNewTweets();
 
 });
