@@ -1,6 +1,6 @@
 ## Laravel-Tweety
 
-Ajax Chat на Laravel 9 (внешне приложение похоже на Twitter)
+Ajax Live Chat на Laravel 9
 
 Нужно открыть приложение в двух разных браузерах или использовать 'Incognito window' для второго пользователя
 
@@ -56,7 +56,7 @@ Password:
 
 ## Laravel-Tweety
 
-Ajax Chat on Laravel 9 (the application looks like Twitter)
+Ajax Live Chat on Laravel 9
 
 You need to open the application in two different browsers or use 'Incognito window' for the second user
 
