@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Traits;
+
 use App\Models\User;
 
 trait Followable
@@ -44,9 +45,9 @@ trait Followable
     /**
      * Get users 'auth->user' are following
      *
-     * @return collection of users
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
      */
-    public function follows()
+    public function follows(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
