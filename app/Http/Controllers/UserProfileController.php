@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\View\View;
 
 class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource ('tweets' by a user on /profiles/{$user} page)
      *
-     * @see method 'tweets()' in App\Models\User;
-     * @return \Illuminate\View\View
+     * @param User $user
+     * @return View
      */
-    public function show(User $user)
+    public function show(User $user): View
     {
         return view('users-profiles.show', [
             'user' => $user,
@@ -23,10 +24,10 @@ class UserProfileController extends Controller
     /**
      * Display a listing of the resource (more 'tweets' by a user on /profiles/{$user} page)
      *
-     * @see method 'moreProfileTweets($user)' in App\Models\User;
-     * @return \Illuminate\View\View
+     * @param User $user
+     * @return View
      */
-    public function showMoreProfileTweets(User $user)
+    public function showMoreProfileTweets(User $user): View
     {
         return view('tweets.more-tweets', [
             'user' => $user,
