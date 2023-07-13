@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
 class FollowsController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(User $user)
+    public function store(User $user): RedirectResponse
     {
         /**
          * @see method 'toggleFollow' in: app\Http\Traits\Followable.php
