@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\View\View;
 
 class ExploreController extends Controller
 {
     /**
      * Display a listing of the resource (all existing users).
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('explore.index', [ 'users' => User::get() ]);
     }
