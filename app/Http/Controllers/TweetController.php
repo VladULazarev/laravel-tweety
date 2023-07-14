@@ -66,9 +66,9 @@ class TweetController extends Controller
     /**
      * Get new 'tweets' for the current user using AJAX.
      *
-     * @return View
+     * @return View|bool
      */
-    public function getNewTweetsForCurrentUser(): View
+    public function getNewTweetsForCurrentUser(): View|bool
     {
         // Get the IDs of users that the current user is following
         $ids = DB::table('follows')
@@ -87,5 +87,7 @@ class TweetController extends Controller
         if ($tweets->count()) {
             return view('tweets.new-tweet-ajax', ['tweets' => $tweets]);
         }
+
+        return false;
     }
 }
