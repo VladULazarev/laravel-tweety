@@ -8,8 +8,10 @@ use App\Http\Traits\Followable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Response;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class User extends Authenticatable
 {
@@ -50,16 +52,10 @@ class User extends Authenticatable
 
     /**
      * Get 'tweets' by the auth->user and the users he/she follows
-     *
-     * @see method timeline() in: app\Http\Controllers\TweetController.php
-     *
-     * @return \Illuminate\Http\Response
      */
     public function timeline()
     {
-        $ids = $this->follows()->pluck('id')->toArray();
-
-        array_push($ids, $this->id);
+        $ids = $this->follows()->pluck('id')->push($this->id);
 
         return Tweet::whereIn('user_id', $ids)->latest()->take(10)->get();
     }
@@ -68,33 +64,28 @@ class User extends Authenticatable
      * Get more 'tweets' by the auth->user and the users he/she follows
      * (if scroll down the page)
      *
+     * @param $skip
+     * @return mixed
      * @see public\build\assets\app.js -- 2. Show more 'tweets'
-     *
-     * @see method moretimeline() in: app\Http\Controllers\TweetController.php
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function moretimeline($skip)
+    public function moreTimeline($skip): mixed
     {
-        $ids = $this->follows()->pluck('id')->toArray();
-
-        array_push($ids, $this->id);
+        $ids = $this->follows()->pluck('id')->push($this->id);
 
         return Tweet::whereIn('user_id', $ids)
-        ->latest()
-        ->skip($skip)
-        ->take(10)
-        ->get();
+            ->latest()
+            ->skip($skip)
+            ->take(10)
+            ->get();
     }
 
     /**
      * Get user's 'tweets' for 'profiles/{user}' page
      *
-     * @see method tweets() in: app\Http\Controllers\UserProfileController.php
-     *
-     * @return \Illuminate\Http\Response
+     * @param $user
+     * @return mixed
      */
-    public function tweets($user)
+    public function tweets($user): mixed
     {
         return Tweet::where('user_id', $user->id)->latest()->take(10)->get();
     }
@@ -102,12 +93,13 @@ class User extends Authenticatable
     /**
      * Get more user's 'tweets' for 'profiles/{user}' page
      *
-     * @see public\build\assets\app.js -- 2. Show more 'tweets'
+     * @param $user
+     * @param $skip
+     * @return mixed
      * @see method moreProfileTweets() in: app\Http\Controllers\UserProfileController.php
-     *
-     * @return \Illuminate\Http\Response
+     * @see public\build\assets\app.js -- 2. Show more 'tweets'
      */
-    public function moreProfileTweets($user, $skip)
+    public function moreProfileTweets($user, $skip): mixed
     {
         return Tweet::where('user_id', $user->id)
         ->latest()
@@ -121,18 +113,18 @@ class User extends Authenticatable
      *
      * @return string Url for user's avatar
      */
-    public function getAvatarAttribute($value)
+    public function getAvatarAttribute($value): string
     {
-        // return "https://i.pravatar.cc/50?u=" . $this->email;
+        // return "https://i.pravatar.cc/50?u=" . $this->email; // debugging
         return asset($value);
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'username';
     }
 
-    public function path()
+    public function path(): string
     {
         return route('user-profile', $this);
     }
