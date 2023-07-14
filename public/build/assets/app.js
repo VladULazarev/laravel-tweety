@@ -10,7 +10,6 @@
 
 $(document).ready(function(){
 
-
 // --------------------------------------------- 1. Set variables and functions
 
     const shortTime = 100;
@@ -23,23 +22,20 @@ $(document).ready(function(){
     /**
      * Show error messages from the current form
      *
-     * @param {*}
-     * formName - The name of the current form,
-     * errorMsg - The text of the message
+     * @param {string} formName - The name of the current form
+     * @param {string} errorMsg - The text of the message
      */
     function showMsg(formName, errorMsg) {
-
-        setTimeout(function(){
+        setTimeout(function () {
             $('.' + formName + '-error').append(errorMsg);
         }, shortTime);
-
         $('.form-errors').fadeTo(shortTime, 1);
     }
 
     /**
      * Hide error messages from the form
      *
-     * @param {*} formName The name of the current form
+     * @param {string} formName - The name of the current form
      */
     function hideMsg(formName) {
         $('.form-errors').fadeTo(shortTime, 0);
@@ -49,18 +45,18 @@ $(document).ready(function(){
     /**
      * Hide error messages from the form if the 'body' field is on focus
      *
-     * @param {*} formName The name of the current form
+     * @param {string} formName - The name of the current form
      */
-    $("#body").focus(function(){
+    $("#body").focus(function () {
         $('.form-errors').fadeTo(shortTime, 0);
     });
 
 // ------------- 2. Show more 'tweets' for '/home' and '/profiles/{$user}'page
 
     // Skip first 10 records (we get them on first load of the current page)
-    var skip = 10;
+    let skip = 10;
 
-    var options = {
+    let options = {
         //root: document.querySelector('body'),
         rootMargin: '0px',
         threshold: 1.0
@@ -73,17 +69,17 @@ $(document).ready(function(){
     const currentUrlFirstSegment = currentUrl[currentUrl.length-2];
 
     // Set '$route' by default
-    $route = 'more-tweets';
+    let $route = 'more-tweets';
 
     // If currentUrl = 'http://tweety/profiles/{$user}'
-    if (currentUrlFirstSegment == 'profiles') {
+    if (currentUrlFirstSegment === 'profiles') {
 
         // Add to '$route' the current second segment of the url
         $route = 'more-profiles-tweets/' + currentUrl[currentUrl.length-1];;
     }
 
     // callback works when 'observer' was found
-    var callback = function(entries, observer) {
+    const callback = function(entries, observer) {
 
         $.post("/" + $route, {
 
@@ -106,9 +102,8 @@ $(document).ready(function(){
         skip += 10;
     };
 
-    var observer = new IntersectionObserver(callback, options);
-
-    var target = document.querySelector('#observer');
+    const observer = new IntersectionObserver(callback, options);
+    const target = document.querySelector('#observer');
 
     // If the 'target' was found
      if (target) {
@@ -166,7 +161,6 @@ $(document).ready(function(){
     $('.new-tweet').on("click",function(e){
 
         e.preventDefault();
-
         hideMsg('tweet');
 
         // Get value from the 'body' field
@@ -197,19 +191,17 @@ $(document).ready(function(){
             }, function(data) {
 
                 // If something went wrong
-                if(data == '') {
+                if (data == '') {
 
                     let errorMsg = "Что-то пошло не так...";
                     showMsg('tweet', errorMsg);
                     $("textarea").val('');
 
-                // If 'ok'
                 } else if (data) {
 
                     hideMsg('tweet');
                     $(".timeline").prepend(data);
                     $("textarea").val('');
-
                     return false;
                 }
             });
@@ -220,15 +212,15 @@ $(document).ready(function(){
 
 // ---------------------- 5. Get new 'tweets' for the current user using 'ajax'
 
-    var getNewTweets = function() {
+    const getNewTweets = function() {
 
-        var getCurrentUrl = currentUrl[currentUrl.length-1];
+        const getCurrentUrl = currentUrl[currentUrl.length-1];
 
         // Start the script only if the current url = http://tweety/home
-        if (getCurrentUrl == 'home') {
+        if (getCurrentUrl === 'home') {
 
             // Get the 'id' of the last 'tweet'
-            var tweetLastId = $(".tweet").first().data("value");
+            let tweetLastId = $(".tweet").first().data("value");
 
             // Get 'id' of the current user
             const userId = $("input[name='current-user']").val();
@@ -241,9 +233,8 @@ $(document).ready(function(){
                 _token: _token
 
             }, function(data) {
-
-                // If something went wrong
-                if(data == '') {
+                
+                if (data == '') {
 
                     //console.log('No new tweets');
 
