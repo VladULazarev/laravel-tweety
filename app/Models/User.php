@@ -92,7 +92,7 @@ class User extends Authenticatable
      * @param $user
      * @param $skip
      * @return mixed
-     * @see method moreProfileTweets() in: app\Http\Controllers\UserProfileController.php
+     * 
      * @see public\build\assets\app.js -- 2. Show more 'tweets'
      */
     public function moreProfileTweets($user, $skip): mixed
