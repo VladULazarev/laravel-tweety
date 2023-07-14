@@ -13,7 +13,7 @@ class Tweet extends Model
 
     protected $with = ['user'];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
