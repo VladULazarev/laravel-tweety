@@ -35,7 +35,7 @@ trait Followable
      *
      * @return bool 'true' if already follows (the record exists), otherwise 'false'
      */
-    public function following(User $user)
+    public function following(User $user): bool
     {
         return $this->follows()
         ->where('following_user_id', $user->id)
@@ -45,9 +45,9 @@ trait Followable
     /**
      * Get users 'auth->user' are following
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany 
+     * @return BelongsToMany
      */
-    public function follows(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function follows(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
