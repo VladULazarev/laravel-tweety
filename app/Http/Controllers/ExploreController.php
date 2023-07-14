@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
-class ExploreController extends Controller
+class FollowsController extends Controller
 {
     /**
-     * Display a listing of the resource (all existing users).
+     * Store a newly created resource in storage.
      *
-     * @return View
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function index(): View
+    public function store(User $user): RedirectResponse
     {
-        return view('explore.index', [ 'users' => User::get() ]);
+        auth()->user()->toggleFollow($user);
+        return back();
     }
 }
