@@ -10,15 +10,12 @@ class FollowsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param User $user
      * @return RedirectResponse
      */
     public function store(User $user): RedirectResponse
     {
-        /**
-         * @see method 'toggleFollow' in: app\Http\Traits\Followable.php
-         */
         auth()->user()->toggleFollow($user);
-
         return back();
     }
 }
