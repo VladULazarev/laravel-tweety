@@ -5,7 +5,7 @@ Ajax Live Chat на Laravel 9
 Протестировать приложение online можно здесь:
 
 ```bash
-https://tweety.vlgroove.space/
+http://tweety.vlgroove.space/
 ```
 
 Нужно открыть приложение в двух разных браузерах или использовать 'Incognito window' для второго пользователя
@@ -60,7 +60,7 @@ Ajax Live Chat on Laravel 9
 You can test the application online here:
 
 ```bash
-https://tweety.vlgroove.space/
+http://tweety.vlgroove.space/
 ```
 
 You need to open the application in two different browsers or use 'Incognito window' for the second user
